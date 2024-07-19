@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LZSS</name>
+    </assembly>
+    <members>
+        <member name="T:LZSS.Lzss">
+            <summary>
+            Implements Compression and Decompression for data using the LZSS Compression.
+            Compression Usage: byte[] output = LZSS.Compress(byte[] rawData);
+            Decompression Usage: byte[] output = LZSS.Decompress(byte[] compressedData, int targetDecompressedSize);
+            </summary>
+        </member>
+        <member name="M:LZSS.Lzss.MOD_WINDOW(System.Int32)">
+            <summary>
+            Modifies the data in the Buffer Window
+            </summary>
+            <param name="A_0">Masked </param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.InitOutputBuffer(LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Initializes the Output Buffer (LZSS Compression Context)
+            </summary>
+            <param name="CTXT1">The Buffer to Initialize</param>
+        </member>
+        <member name="M:LZSS.Lzss.InputBit(System.Byte*,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Inputs data from a string into a buffer for comparison and potential compression
+            </summary>
+            <param name="input_string"></param>
+            <param name="CTXT1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.DeleteString(System.Int32,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Removes a string segment after it has been replaced with the Compression Scheme representation
+            </summary>
+            <param name="p"></param>
+            <param name="CTXT1"></param>
+        </member>
+        <member name="M:LZSS.Lzss.AddString(System.Int32,System.Int32@,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Adds a string to specific location during decompression
+            </summary>
+            <param name="new_node"></param>
+            <param name="match_position"></param>
+            <param name="CTXT2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.ReplaceNode(System.Int32,System.Int32,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Used in the Look Ahead function to manage which nodes are being analyzed in the tree
+            </summary>
+            <param name="old_node"></param>
+            <param name="new_node"></param>
+            <param name="CTXT2"></param>
+        </member>
+        <member name="M:LZSS.Lzss.OutputChar(System.Int32,System.Byte*,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Builds the output buffer in memory
+            </summary>
+            <param name="data"></param>
+            <param name="output_string"></param>
+            <param name="CTXT2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.Expand(System.Byte*,System.Byte*,System.Int32)">
+            <summary>
+            Expands specific data within a buffer and moves it to the output buffer
+            </summary>
+            <param name="input_string"></param>
+            <param name="output_string"></param>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.OutputPair(System.Int32,System.Int32,System.Byte*,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            The keys used to build the dictionary of compressed values
+            </summary>
+            <param name="position"></param>
+            <param name="length"></param>
+            <param name="output_string"></param>
+            <param name="CTXT1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.FindNextNode(System.Int32,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Used in the Look Ahead function to search for nodes matching the current Compression Key
+            </summary>
+            <param name="node"></param>
+            <param name="CTXT1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.InitInputBuffer(System.Byte*,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Initializes the input buffer
+            </summary>
+            <param name="input_string"></param>
+            <param name="CTXT1"></param>
+        </member>
+        <member name="M:LZSS.Lzss.ContractNode(System.Int32,System.Int32,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Adds nodes together for analysis during Look Ahead
+            </summary>
+            <param name="old_node"></param>
+            <param name="new_node"></param>
+            <param name="CTXT2"></param>
+        </member>
+        <member name="M:LZSS.Lzss.Compress(System.Byte*,System.Byte*,System.Int32)">
+            <summary>
+            Compresses data within a buffer
+            </summary>
+            <param name="input_string"></param>
+            <param name="output_string"></param>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.InitTree(System.Int32,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Initializes the tree structure used for Look Ahead and building the dictionary
+            </summary>
+            <param name="r"></param>
+            <param name="CTXT1"></param>
+        </member>
+        <member name="M:LZSS.Lzss.FlushOutputBuffer(System.Byte*,LZSS.Lzss.LZSS_COMP_CTXT@)">
+            <summary>
+            Flushes the output buffer after data is moved to the correct location 
+            </summary>
+            <param name="output_string"></param>
+            <param name="CTXT1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.Compress(System.Byte[])">
+            <summary>
+            Entry Point for Compression Operations
+            </summary>
+            <param name="uncompressedContent">Data being compressed</param>
+            <returns></returns>
+        </member>
+        <member name="M:LZSS.Lzss.Decompress(System.Byte[],System.Int32)">
+            <summary>
+            Entry Point for Decompression Operations
+            </summary>
+            <param name="compressedContent">Compressed data to be decompressed</param>
+            <param name="uncompressedSize">Target size for Decompressed Data</param>
+            <returns></returns>
+        </member>
+        <member name="T:LZSS.Lzss.LZSS_COMP_CTXT">
+            <summary>
+            Data Buffer (LZSS Compression Context)
+            </summary>
+        </member>
+        <member name="T:LZSS.Lzss.TreeNode">
+            <summary>
+            Data Node within the buffer stored in a tree for Look Ahead anlysis
+            </summary>
+        </member>
+    </members>
+</doc>
